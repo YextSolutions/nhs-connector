@@ -1,0 +1,112 @@
+{
+  "$id": "nhs_nHSCommonHealthQuestionsConnector",
+  "$schema": "https://schema.yext.com/config/km/connector/v3",
+  "displayName": "NHS Common Health Questions Connector",
+  "entityType": "faq",
+  "source": {
+    "sourceConfig": {
+      "crawlerConfig": {
+        "crawler": "nhs_nhscrawler",
+        "urlPatterns": []
+      }
+    },
+    "selectors": [
+      {
+        "type": "PAGE_ID",
+        "header": "Page ID"
+      },
+      {
+        "type": "PAGE_URL",
+        "header": "Page URL"
+      },
+      {
+        "type": "PAGE_TITLE",
+        "header": "Page Title"
+      },
+      {
+        "type": "CSS",
+        "header": "Body",
+        "path": "section:not(:last-of-type)",
+        "mode": "INNER_HTML"
+      },
+      {
+        "type": "CSS",
+        "header": "Category",
+        "path": ".nhsuk-breadcrumb__backlink",
+        "mode": "ALL_TEXT"
+      }
+    ]
+  },
+  "transforms": [
+    {
+      "findAndReplace": {
+        "inputHeaders": {
+          "headers": [
+            "Page Title"
+          ]
+        },
+        "valueToFind": {
+          "plainText": {
+            "value": " - NHS",
+            "ignoreCase": false
+          }
+        },
+        "replacement": ""
+      }
+    },
+    {
+      "extractText": {
+        "inputHeader": "Category",
+        "newColumnHeader": "Category 2",
+        "extractOperation": "ALL_TEXT_AFTER",
+        "extractFrom": "FIRST_INSTANCE_MATCHING_TEXT",
+        "valueToFind": {
+          "plainText": {
+            "value": "Back to ",
+            "ignoreCase": false
+          }
+        }
+      }
+    },
+    {
+      "filterRows": {
+        "action": "REMOVE",
+        "combinator": "AND",
+        "rules": [
+          {
+            "columnHeader": "Page Title",
+            "conditional": "DOES_NOT_CONTAIN",
+            "conditionalInput": "?"
+          }
+        ]
+      }
+    }
+  ],
+  "mappings": [
+    {
+      "field": "landingPageUrl",
+      "header": "Page URL",
+      "subfieldPath": []
+    },
+    {
+      "field": "nhs_nHSCategory",
+      "header": "Category 2",
+      "subfieldPath": []
+    },
+    {
+      "field": "question",
+      "header": "Page Title",
+      "subfieldPath": []
+    },
+    {
+      "field": "answer",
+      "header": "Body",
+      "subfieldPath": []
+    },
+    {
+      "field": "entityId",
+      "header": "Page ID",
+      "subfieldPath": []
+    }
+  ]
+}

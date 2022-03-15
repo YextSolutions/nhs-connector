@@ -1,0 +1,10 @@
+{
+  "$id": "faq",
+  "$schema": "https://schema.yext.com/config/km/field-eligibility-group/v1",
+  "name": "FAQ",
+  "entityType": "faq",
+  "fields": [
+    "nhs_nHSCategory"
+  ],
+  "required": []
+}

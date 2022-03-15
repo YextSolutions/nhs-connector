@@ -1,0 +1,23 @@
+{
+  "$id": "nhs_nhscrawler",
+  "$schema": "https://schema.yext.com/config/crawler/site-crawler/v1",
+  "name": "NHS Crawler",
+  "enabled": true,
+  "crawlSchedule": "daily",
+  "crawlStrategy": "subPages",
+  "domains": [
+    "https://www.nhs.uk/common-health-questions/"
+  ],
+  "ignoreQueryParameterOption": "none",
+  "blacklistedUrls": [
+    "https://www.nhs.uk/.*/#maincontent",
+    "https://www.nhs.uk/conditions/.*",
+    "https://www.nhs.uk/healthier-families/.*",
+    "https://www.nhs.uk/nhs-app/.*",
+    "https://www.nhs.uk/service-search/.*",
+    "https://www.nhs.uk/start4life/.*"
+  ],
+  "subPagesUrlStructures": [
+    "https://www.nhs.uk/common-health-questions/.*"
+  ]
+}
