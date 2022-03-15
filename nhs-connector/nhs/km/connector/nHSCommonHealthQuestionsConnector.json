@@ -108,5 +108,9 @@
       "header": "Page ID",
       "subfieldPath": []
     }
-  ]
+  ],
+    "scheduleConfig": {
+    "useSourceSchedule": true,
+    "runMode": "COMPREHENSIVE"
+  }
 }
